@@ -36,11 +36,16 @@ class PostController extends Controller
     {
         $this->getValidate($request);
 
+        $url = $request->file('thumbnail')->storePublicly(
+            'blogu/posts',
+            'contabo'
+        );
+
         Post::create([
             'title' => $request['title'],
             'body' => $request['body'],
             'category_id' => $request['category_id'],
-            'url' => $request['url'],
+            'url' => $url,
             'user_id' => Auth::id()
         ]);
 
